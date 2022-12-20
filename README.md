@@ -18,6 +18,8 @@ $ docker run -it --mount "type=bind,source=<repo>,target=/bleeding-edge" bleedin
 
 # inside container
 $ cd /bleeding-edge
-$ cmake -S . -B build -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
-$ cmake --build build/
+$ cmake -S . -B Release -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
+$ cmake --build Release/
 ```
+## notes
+- currently we use google style for `clang-format` and `clang-tidy`
