@@ -5,4 +5,4 @@ demonstrate the usage of Armadillo library in performing a matrix-vector product
 - we use conan to resolve dependency (`conanfile.txt` in this project space)
 
 # TODO
-[ ] make it work with clang
+[x] make it work with clang

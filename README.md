@@ -18,7 +18,7 @@ $ docker run -it --mount "type=bind,source=<repo>,target=/bleeding-edge" bleedin
 
 # inside container
 $ cd /bleeding-edge
-$ cmake -S . -B Release -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
+$ cmake -S . -B Release -DCMAKE_C_COMPILER=clang -DCMAKE_-DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
 $ cmake --build Release/
 ```
 ## notes
