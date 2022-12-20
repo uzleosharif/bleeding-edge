@@ -1,3 +1,7 @@
 
+#include "armadillo"
 
-auto main() -> int { return 0; }
+auto main() -> int {
+  arma::Mat<double> A = arma::randu(4, 4);
+  return 0;
+}

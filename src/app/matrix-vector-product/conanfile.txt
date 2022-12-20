@@ -1,0 +1,5 @@
+[requires]
+armadillo/10.7.3
+
+[generators]
+cmake
