@@ -1,9 +1,9 @@
 
 
-project(ranges CXX)
+project(stl CXX)
 
 cmake_minimum_required(VERSION 3.25)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(ranges main.cpp)
+add_executable(ranges ranges.cpp)
