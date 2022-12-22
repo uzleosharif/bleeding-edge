@@ -6,6 +6,7 @@
 
 // ranges : iterable sequences
 // views : lightweight objects which are manipulated by ranges
+// range adaptors : take a range and produce a view (produce lazily evaluated views)
 
 auto main() -> int {
   const auto ints = {0, 1, 2, 3, 4, 5};

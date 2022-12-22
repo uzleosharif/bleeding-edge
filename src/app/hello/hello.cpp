@@ -1,8 +1,5 @@
 
 
-#include <iostream>
+import <iostream>;
 
-auto main() -> int {
-  std::cout << "hi\n";
-  return 0;
-}
+auto main() -> int { std::cout << "hi\n"; }
