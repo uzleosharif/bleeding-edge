@@ -23,3 +23,5 @@ $ cmake --build Release/
 ```
 ## notes
 - currently we use google style for `clang-format` and `clang-tidy`
+- it seems `clang` compiler is not yet ready for new features. So reverting back to gcc mostly
+- for modules (esp. header-units for STL), sadly it seems both gcc, clang are not up to task compared to MSVC

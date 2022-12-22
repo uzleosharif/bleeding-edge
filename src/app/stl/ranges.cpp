@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <ranges>
-#include <vector>
 
 // ranges : iterable sequences
 // views : lightweight objects which are manipulated by ranges
@@ -10,6 +9,10 @@
 
 auto main() -> int {
   const auto ints = {0, 1, 2, 3, 4, 5};
+  for (auto& i : ints) {
+    std::cout << i << "\n";
+  }
+
   auto even = [](int i) { return 0 == i % 2; };
   auto square = [](int i) { return i * i; };
 
