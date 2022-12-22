@@ -7,6 +7,9 @@ have a look at the dockerfile to have better idea what needs to be available bef
 - `cmake` for building these projects. Ideally latest release version.
 - `conan` (for package management)
 
+- `libgl-dev`, `pkg-config` for qt conan package. Surprisingly conan does no install these dependencies itself but 
+  emits out log for missing stuff so this can be installed via distro package manager easily
+
 
 ## compile
 sample shell commands to compile projects (docker based dev flow)
@@ -26,5 +29,6 @@ $ cmake --build Release/
 - it seems `clang` compiler is not yet ready for new features. So reverting back to gcc mostly
 - for modules (esp. header-units for STL), sadly it seems both gcc, clang are not up to task compared to MSVC
 - the app/lib dev should be responsible for resolving all dependencies so better to use conan package manager 
-  instead of relying on user to install required packages via linux distros' package managers e.g. instead of 
-  installing `armadillo` via debain apt, we use conan to automatically do this if projects dependent on it are compiled  
+  instead of relying on user to install required packages via linux distros' package managers (where possible) 
+  e.g. instead of installing `armadillo` via debain apt, we use conan to automatically do this if projects
+  dependent on it are compiled  
