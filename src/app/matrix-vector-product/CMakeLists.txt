@@ -10,12 +10,16 @@ set(CMAKE_CXX_STANDARD 23)
 set(conan_required_packages "armadillo/10.7.3") 
 
 # setting up dependencies via conan
+get_property(is_multi_config GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+
 include(${CMAKE_SOURCE_DIR}/cmake/utils.cmake)
 utils_conan_install()
 
-find_package(armadillo)
-# # for multi-config build system generator
-# find_package(armadillo CONFIG)
+if(${is_multi_config})
+  find_package(armadillo CONFIG)
+else()
+  find_package(armadillo)
+endif()
 
 # generating targets for this project
 add_executable(mvp main.cpp)
