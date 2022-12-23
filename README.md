@@ -33,3 +33,9 @@ $ cmake --build build --config Release
   instead of relying on user to install required packages via linux distros' package managers (where possible) 
   e.g. instead of installing `armadillo` via debain apt, we use conan to automatically do this if projects
   dependent on it are compiled  
+
+## interesting topics
+- c++ core guidelines -> coherent philosophy of c++
+- qt tutorials
+- mars rover codebase (embedded c++)
+- testing frameworks
