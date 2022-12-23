@@ -6,17 +6,19 @@ macro(utils_conan_install)
 
   include(${CMAKE_SOURCE_DIR}/cmake/conan.cmake)
 
-  conan_cmake_configure(
-    REQUIRES ${conan_required_packages}
-    GENERATORS cmake_find_package
-  )
+  foreach(pkg ${conan_required_packages})    
+    conan_cmake_configure(REQUIRES ${pkg} GENERATORS cmake_find_package_multi)
 
-  conan_cmake_autodetect(settings)
+    foreach(TYPE ${CMAKE_CONFIGURATION_TYPES})
+      conan_cmake_autodetect(settings BUILD_TYPE ${TYPE})
+      
+      conan_cmake_install(
+        PATH_OR_REFERENCE .
+        BUILD missing
+        REMOTE conancenter
+        SETTINGS ${settings}
+      )
+    endforeach()
+  endforeach()
   
-  conan_cmake_install(
-    PATH_OR_REFERENCE .
-    BUILD missing
-    REMOTE conancenter
-    SETTINGS ${settings}
-  )
 endmacro()

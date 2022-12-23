@@ -1,4 +1,2 @@
-Release/
+build/
 notes.txt
-gcc-release/
-clang-release/
