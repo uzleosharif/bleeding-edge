@@ -17,6 +17,7 @@ macro(utils_conan_install)
         BUILD missing
         REMOTE conancenter
         SETTINGS ${settings}
+        CONF "tools.system.package_manager:mode=install"
       )
     endforeach()
   endforeach()
