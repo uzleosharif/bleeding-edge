@@ -1,0 +1,11 @@
+
+
+# cleanup for final image
+FROM ubuntu:22.04
+
+# conan
+# python3-pip : needed for installing conan package manager
+# pkg-config: conan seems to rely on it natively
+RUN apt update && apt install -y build-essential python3-pip pkg-config cmake ninja-build
+RUN pip install conan
+

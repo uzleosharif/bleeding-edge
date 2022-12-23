@@ -39,9 +39,9 @@ FROM ubuntu:22.10
 COPY --from=base /opt /opt/.
 ENV PATH=$PATH:/opt/cmake/bin/:/opt/llvm/bin/
 
-# python3-pip : needed for installing conan package manager
-RUN apt update && apt install -y python3-pip
-
 # conan
+# python3-pip : needed for installing conan package manager
+# pkg-config: conan seems to rely on it natively
+RUN apt update && apt install -y python3-pip pkg-config
 RUN pip install conan
 

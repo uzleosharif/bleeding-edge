@@ -7,10 +7,6 @@ have a look at the dockerfile to have better idea what needs to be available bef
 - `cmake` for building these projects. Ideally latest release version.
 - `conan` (for package management)
 
-- `libgl-dev`, `pkg-config` for qt conan package. Surprisingly conan does no install these dependencies itself but 
-  emits out log for missing stuff so this can be installed via distro package manager easily
-
-
 ## compile
 sample shell commands to compile projects (docker based dev flow)
 ```[shell]
@@ -23,6 +19,11 @@ $ docker run -it --mount "type=bind,source=<repo>,target=/bleeding-edge" bleedin
 $ cd /bleeding-edge
 $ cmake -S . -B Release -DCMAKE_C_COMPILER=clang -DCMAKE_-DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
 $ cmake --build Release/
+
+# alternative cmake flow
+$ cd /bleeding-edge
+$ cmake -B build -S . -G "Ninja Multi-Config"
+$ cmake --build build --config Release
 ```
 ## notes
 - currently we use google style for `clang-format` and `clang-tidy`
