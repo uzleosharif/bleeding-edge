@@ -1,6 +1,8 @@
 
 
 macro(utils_conan_install)
+  get_property(is_multi_config GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+
   list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR})
   list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR})
 

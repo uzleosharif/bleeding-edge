@@ -10,8 +10,6 @@ set(CMAKE_CXX_STANDARD 23)
 set(conan_required_packages "armadillo/10.7.3") 
 
 # setting up dependencies via conan
-get_property(is_multi_config GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-
 include(${CMAKE_SOURCE_DIR}/cmake/utils.cmake)
 utils_conan_install()
 

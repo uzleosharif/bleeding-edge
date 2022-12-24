@@ -1,9 +1,10 @@
 
 
-#include <QtCore>
 #include <iostream>
 
+#include "QtCore/QtCore"
+
 auto main() -> int {
-  std::cout << "Qt version: " << qVersion << std::endl;
+  std::cout << "Qt version: " << qVersion() << std::endl;
   return 0;
 }

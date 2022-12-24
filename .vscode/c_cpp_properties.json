@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/ga38qoh/.conan/data/armadillo/10.7.3/_/_/source/source_subfolder/include/"
+                "/home/ga38qoh/.conan/data/armadillo/10.7.3/_/_/source/source_subfolder/include/",
+                "/home/ga38qoh/.conan/data/qt/5.15.7/include/"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
