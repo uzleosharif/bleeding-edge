@@ -3,9 +3,11 @@ try out app dev with c++23
 
 ## dependencies
 have a look at the dockerfile to have better idea what needs to be available before cloning this repo. So far
-- `clang++` compiler (g++ ok too). Ideally latest realease version.
+<!-- - `clang++` compiler (g++ ok too). Ideally latest realease version. -->
 - `cmake` for building these projects. Ideally latest release version.
 - `conan` (for package management)
+- `pkg-config` internally used by conan scripts
+<!-- - `ninja`, `Ninja Multi-Config` generators -->
 
 ## compile
 sample shell commands to compile projects (docker based dev flow)

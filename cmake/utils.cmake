@@ -18,7 +18,9 @@ macro(utils_conan_install)
           BUILD missing
           REMOTE conancenter
           SETTINGS ${settings}
+          CONF "tools.system.package_manager:sudo=True"
           CONF "tools.system.package_manager:mode=install"
+          OPTIONS "*:shared=True"
         )
       endforeach()
     else()
@@ -29,7 +31,9 @@ macro(utils_conan_install)
         BUILD missing
         REMOTE conancenter
         SETTINGS ${settings}
-        CONF "tools.system.package_manager:mode=install"      
+        CONF "tools.system.package_manager:sudo=True"
+        CONF "tools.system.package_manager:mode=install"
+        OPTIONS "*:shared=True"
       )
     endif()
   endforeach()
