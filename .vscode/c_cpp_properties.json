@@ -1,11 +1,14 @@
+
+// TODO: the include paths should be moved into CMAKE_BINARY_DIR so that then 
+//       they can be easily referred to
 {
     "configurations": [
         {
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/ga38qoh/.conan/data/armadillo/10.7.3/_/_/source/source_subfolder/include/",
-                "/home/ga38qoh/.conan/data/qt/5.15.7/include/"
+                "~/.conan/data/armadillo/10.7.3/_/_/source/source_subfolder/include/",
+                "~/.conan/data/qt/5.15.7/_/_/package/54844ba061d69913fccb681baeb4ca01c04c7789/include/"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

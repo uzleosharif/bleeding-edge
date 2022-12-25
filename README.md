@@ -8,6 +8,7 @@ have a look at the dockerfile to have better idea what needs to be available bef
 - `conan` (for package management)
 - `pkg-config` internally used by conan scripts
 <!-- - `ninja`, `Ninja Multi-Config` generators -->
+- `clang-format`, `clang-tidy` from llvm project
 
 ## compile
 sample shell commands to compile projects (docker based dev flow)

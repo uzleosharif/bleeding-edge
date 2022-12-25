@@ -21,4 +21,7 @@ endif()
 
 # generating targets for this project
 add_executable(hello hello_world.cpp)
-target_link_libraries(hello Qt5::Core)
+target_link_libraries(hello PRIVATE Qt5::Core)
+
+add_executable(gui-hello gui_hello.cpp)
+target_link_libraries(gui-hello PRIVATE Qt5::Widgets)

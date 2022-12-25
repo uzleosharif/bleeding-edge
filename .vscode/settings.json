@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "armadillo": "cpp",
-        "qtcore": "cpp"
+        "qtcore": "cpp",
+        "qapplication": "cpp"
     },
 }
