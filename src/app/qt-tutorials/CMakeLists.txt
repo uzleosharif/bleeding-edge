@@ -25,3 +25,35 @@ target_link_libraries(hello PRIVATE Qt5::Core)
 
 add_executable(gui-hello gui_hello.cpp)
 target_link_libraries(gui-hello PRIVATE Qt5::Widgets)
+
+add_executable(basic-str strings/basic_string.cpp)
+target_link_libraries(basic-str PRIVATE Qt5::Core)
+
+add_executable(initialize-str strings/initialize.cpp)
+target_link_libraries(initialize-str PRIVATE Qt5::Core)
+
+add_executable(access-str strings/access.cpp)
+target_link_libraries(access-str PRIVATE Qt5::Core)
+
+add_executable(build-str strings/build.cpp)
+target_link_libraries(build-str PRIVATE Qt5::Core)
+
+add_executable(sub-str strings/substrings.cpp)
+target_link_libraries(sub-str PRIVATE Qt5::Core)
+
+add_executable(compare-str strings/compare.cpp)
+target_link_libraries(compare-str PRIVATE Qt5::Core)
+
+add_executable(convert-str strings/convert.cpp)
+target_link_libraries(convert-str PRIVATE Qt5::Core)
+
+add_executable(tooltip tooltip.cpp)
+target_link_libraries(tooltip PRIVATE Qt5::Widgets)
+
+add_executable(cursors cursors.cpp)
+target_link_libraries(cursors PRIVATE Qt5::Widgets)
+
+add_executable(push-button pushbutton.cpp)
+target_link_libraries(push-button PRIVATE Qt5::Widgets)
+
+add_subdirectory(plus-minus)
