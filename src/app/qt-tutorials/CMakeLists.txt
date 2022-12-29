@@ -58,3 +58,4 @@ target_link_libraries(push-button PRIVATE Qt5::Widgets)
 
 add_subdirectory(plus-minus)
 add_subdirectory(menu)
+add_subdirectory(layout)
