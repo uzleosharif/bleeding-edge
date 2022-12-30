@@ -1,4 +1,3 @@
-
 // TODO: the include paths should be moved into CMAKE_BINARY_DIR so that then 
 //       they can be easily referred to
 {
@@ -12,7 +11,8 @@
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
-            "cStandard": "gnu17",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
             "intelliSenseMode": "linux-gcc-x64"
         }
     ],

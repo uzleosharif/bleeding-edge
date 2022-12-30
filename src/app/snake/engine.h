@@ -1,16 +1,13 @@
 
 
-// design:
-// the `processInput()` takes an input integer key representing the user input, which can be mapped to specific actions
-// in the game. The `render()` takes a reference to a buffer and fills it with the game state, which can then be
-// displayed by the GUI layer
-
-// to use the game engine, you would create an instance of the `SnakeEngine` class and call the `run()` function to
-// start the game loop. User -> GUI -> Engine
-
 #pragma once
 
+#include <vector>
+
 class SnakeEngine {
+  enum class BlockType { SNAKE, FRUIT, EMPTY };
+  enum class Direction { UP, DOWN, RIGHT, LEFT };
+
  public:
   SnakeEngine() = default;
   virtual ~SnakeEngine() = default;
@@ -19,11 +16,9 @@ class SnakeEngine {
   SnakeEngine& operator=(const SnakeEngine&) = default;
   SnakeEngine& operator=(SnakeEngine&&) = default;
 
-  auto init() -> void;
-  auto setBoardLength(int length) -> void;
-  auto setBoardWidth(int width) -> void;
+  auto init(int board_rows = 30, int board_cols = 30) -> void;
 
  private:
-  int board_x_{30};
-  int board_y_{30};
+  std::vector<BlockType> board_{};
+  Direction snake_direction_{Direction::RIGHT};
 };
