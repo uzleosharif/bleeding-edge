@@ -33,3 +33,6 @@ target_link_libraries(form PRIVATE Qt5::Widgets)
 
 add_executable(calculator calculator.cpp calculator_main.cpp)
 target_link_libraries(calculator PRIVATE Qt5::Widgets)
+
+add_executable(review review.cpp review_main.cpp)
+target_link_libraries(review PRIVATE Qt5::Widgets)
