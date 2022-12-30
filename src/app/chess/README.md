@@ -27,6 +27,63 @@ this is effort towards building a chess game
 - keep track of the game state
 - game logic: making and validating moves, detecting checkmate and stalemate, and determining when game is over
 
+api:
+```
+class ChessEngine
+{
+public:
+    // Enumeration of the different chess piece types
+    enum PieceType { PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING };
+
+    // Enumeration of the different chess piece colors
+    enum Color { WHITE, BLACK };
+
+    // Structure representing a chess piece
+    struct Piece
+    {
+        PieceType type;
+        Color color;
+    };
+
+    // Structure representing a chess move
+    struct Move
+    {
+        int fromRow;
+        int fromColumn;
+        int toRow;
+        int toColumn;
+    };
+
+    // Initializes the chess engine and sets up the initial game state
+    void init();
+
+    // Makes a move on the chess board
+    void makeMove(const Move& move);
+
+    // Undoes the last move made on the chess board
+    void undoMove();
+
+    // Returns the current state of the chess board
+    const Piece* getBoard() const;
+
+    // Returns the current player's color
+    Color getCurrentPlayer() const;
+
+    // Returns true if the game is over (e.g. checkmate or stalemate)
+    bool gameOver() const;
+
+    // Returns true if the current player is in check
+    bool inCheck() const;
+
+private:
+    // Private member variables and functions go here
+};
+
+```
+This API defines a ChessEngine class with several member functions and types that can be used to initialize and manipulate the game state, make and undo moves, and check the status of the game.
+
+The getBoard function returns a pointer to an array of chess pieces representing the current state of the board. The getCurrentPlayer function returns the color of the player who is currently making a move. The gameOver and inCheck functions can be used to check the status of the game.
+
 ## chess engine isolated from gui 
 it is possible to implement a chess engine that is independent of the GUI framework you are using. This can be useful 
 if you want to be able to easily switch to a different GUI framework or reuse the chess engine in other projects.
