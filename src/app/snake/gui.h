@@ -4,6 +4,8 @@
 
 #include "engine.h"
 
+namespace snake {
+
 class Gui {
  public:
   // constructor
@@ -16,11 +18,13 @@ class Gui {
 
   // set the underlying engine for snake logic
   // this isn't meant to be called frequently hence no issue not inlining it
-  auto setEngine(SnakeEngine* engine) -> void;
+  auto setEngine(Engine* engine) -> void;
 
   // run the game loop
   auto run() -> void;
 
  private:
-  SnakeEngine* engine_{nullptr};
+  Engine* engine_{nullptr};
 };
+
+}

@@ -18,4 +18,5 @@ else()
 endif()
 
 add_executable(snake main.cpp engine.cpp gui.cpp)
-target_link_libraries(snake PRIVATE Qt5::Widgets)
+target_include_directories(snake PRIVATE ${CMAKE_SOURCE_DIR}/src/lib/)
+target_link_libraries(snake PRIVATE Qt5::Widgets utils)

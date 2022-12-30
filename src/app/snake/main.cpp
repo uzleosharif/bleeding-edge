@@ -3,8 +3,8 @@
 #include "gui.h"
 
 auto main() -> int {
-  SnakeEngine engine{};
-  Gui gui{};
+  snake::Engine engine{};
+  snake::Gui gui{};
   gui.setEngine(&engine);
   gui.run();
 }
