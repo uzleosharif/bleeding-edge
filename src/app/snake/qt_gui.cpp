@@ -2,7 +2,6 @@
 
 #include "qt_gui.h"
 
-#include <iostream>
 #include <stdexcept>
 
 #include "QtGui/QResizeEvent"
@@ -44,13 +43,12 @@ auto snake::QtGui::run() -> void {
   // initialize the game state
   engine_->init(kBoardWidth, kBoardLength);
 
-  QObject::connect(&timer_, &QTimer::timeout, [this]() {
+  connect(&timer_, &QTimer::timeout, [this]() {
     game_time_ += (kSpeed / 1000.0);
 
     if (game_time_ >= kWelcomeScreenWait) {
       if (!snake_started_) {
-        scene_->clear();
-        scene_->setSceneRect(0, 0, kBoardLength, kBoardWidth);
+        scene_->removeItem(text_.get());
         scene_->addItem(walls_.get());
         scene_->addItem(fruit_.get());
         scene_->addItem(snake_.get());
@@ -61,7 +59,15 @@ auto snake::QtGui::run() -> void {
         render();
 
         if (engine_->isGameOver()) {
-          QApplication::quit();
+          text_->setPlainText("Game Over");
+          text_->setX(text_->x() + 10);
+
+          scene_->removeItem(walls_.get());
+          scene_->removeItem(fruit_.get());
+          scene_->removeItem(snake_.get());
+          scene_->addItem(text_.get());
+
+          timer_.stop();
         }
       }
     }
