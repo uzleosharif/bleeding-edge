@@ -5,6 +5,7 @@
 #include <stdexcept>
 
 #include "QtGui/QResizeEvent"
+#include "QtWidgets/QApplication"
 #include "QtWidgets/QGraphicsEllipseItem"
 
 snake::QtGui::QtGui(QWidget* parent) : QMainWindow{parent} {
@@ -61,4 +62,10 @@ auto snake::QtGui::render() -> void {
 
   auto [snake_tail, snake_head] = engine_->getSnakePos();
   snake_->setLine(snake_tail.first, snake_tail.second, snake_head.first, snake_head.second);
+}
+
+auto snake::QtGui::keyPressEvent(QKeyEvent* event) -> void {
+  if (event->modifiers() & Qt::ControlModifier && event->key() == Qt::Key_W) {
+    QApplication::quit();
+  }
 }

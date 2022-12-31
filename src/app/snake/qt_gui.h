@@ -18,8 +18,8 @@ namespace snake {
 class QtGui : public QMainWindow {
   // parameters for board
   // TODO: expose these to users?
-  static constexpr int kBoardLength{500};
-  static constexpr int kBoardWidth{500};
+  static constexpr int kBoardLength{250};
+  static constexpr int kBoardWidth{250};
   static constexpr auto kBoardBackgroundColor{Qt::white};
   static constexpr auto kFruitColor{Qt::black};
   static constexpr auto kSnakeColor{Qt::black};
@@ -45,6 +45,7 @@ class QtGui : public QMainWindow {
 
  private:
   auto render() -> void;
+  auto keyPressEvent(QKeyEvent* event) -> void;
 
   Engine* engine_{nullptr};
   std::unique_ptr<QGraphicsView> view_{std::make_unique<QGraphicsView>()};
