@@ -6,6 +6,7 @@
 
 #include <map>
 
+#include "QtCore/QTimer"
 #include "QtWidgets/QGraphicsRectItem"
 #include "QtWidgets/QGraphicsScene"
 #include "QtWidgets/QGraphicsView"
@@ -23,6 +24,8 @@ class QtGui : public QMainWindow {
   static constexpr auto kFruitColor{Qt::black};
   static constexpr auto kSnakeColor{Qt::black};
   static constexpr int kScale{5};
+  // game updates each `kSpeed` milli-seconds
+  static constexpr int kSpeed{100};
 
  public:
   // constructor
@@ -41,11 +44,15 @@ class QtGui : public QMainWindow {
   auto run() -> void;
 
  private:
+  auto render() -> void;
+
   Engine* engine_{nullptr};
   std::unique_ptr<QGraphicsView> view_{std::make_unique<QGraphicsView>()};
   std::unique_ptr<QGraphicsScene> scene_{std::make_unique<QGraphicsScene>()};
   std::unique_ptr<QGraphicsRectItem> walls_{std::make_unique<QGraphicsRectItem>(0, 0, kBoardLength, kBoardWidth)};
   std::unique_ptr<QGraphicsEllipseItem> fruit_{std::make_unique<QGraphicsEllipseItem>(0, 0, kScale, kScale)};
+  std::unique_ptr<QGraphicsLineItem> snake_{std::make_unique<QGraphicsLineItem>(0, 0, 0, 0)};
+  QTimer timer_{};
 };
 
 }  // namespace snake

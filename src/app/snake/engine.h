@@ -23,6 +23,7 @@ class Engine {
   Engine& operator=(Engine&&) = default;
 
   auto init(int board_rows = 10, int board_cols = 10) -> void;
+  auto advance() -> void;
   auto getFruitPos() const -> pos_t;
   auto getSnakePos() const -> std::pair<pos_t, pos_t>;
   auto getSnakeDirection() const -> Direction;

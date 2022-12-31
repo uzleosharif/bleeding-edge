@@ -29,3 +29,11 @@ auto snake::Engine::getFruitPos() const -> pos_t { return fruit_; }
 auto snake::Engine::getSnakePos() const -> std::pair<pos_t, pos_t> { return snake_; }
 
 auto snake::Engine::getSnakeDirection() const -> Direction { return snake_direction_; }
+
+auto snake::Engine::advance() -> void {
+  auto& tail{snake_.first};
+  auto& head{snake_.second};
+
+  head.first++;
+  tail.first++;
+}
