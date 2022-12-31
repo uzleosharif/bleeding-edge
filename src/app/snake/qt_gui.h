@@ -1,5 +1,7 @@
 
 
+// my first attempt at gui programming so there is lot of room for improvement (graphics, performance)
+
 #pragma once
 
 #include <map>
@@ -12,27 +14,31 @@
 
 namespace snake {
 
-class QtGui {
+class QtGui : public QMainWindow {
   // parameters for board
+  // TODO: expose these to users?
   static constexpr int kBoardLength{500};
   static constexpr int kBoardWidth{500};
   static constexpr int kWallThickness{5};
   static constexpr auto kBoardBackgroundColor{Qt::black};
   static constexpr auto kWallColor{Qt::red};
+  static constexpr auto kFruitColor{Qt::green};
+  static constexpr int kScale{10};
 
-  class Board final : public QMainWindow {
-   public:
-    Board(QWidget* parent = nullptr);
+  // class Board final : public QMainWindow {
+  //  public:
+  //   Board(QWidget* parent = nullptr);
 
-   private:
-    std::unique_ptr<QGraphicsView> view_{nullptr};
-    std::unique_ptr<QGraphicsScene> scene_{nullptr};
-    std::map<std::string, std::unique_ptr<QGraphicsRectItem>> walls_{};
-  };
+  //  private:
+  //   //  TODO: can we do view, scene, walls at compile time??
+  //   std::unique_ptr<QGraphicsView> view_{nullptr};
+  //   std::unique_ptr<QGraphicsScene> scene_{nullptr};
+  //   std::map<std::string, std::unique_ptr<QGraphicsRectItem>> walls_{};
+  // };
 
  public:
   // constructor
-  QtGui();
+  QtGui(QWidget* parent = nullptr);
   virtual ~QtGui() = default;
   QtGui(const QtGui&) = default;
   QtGui(QtGui&&) = default;
@@ -48,7 +54,10 @@ class QtGui {
 
  private:
   Engine* engine_{nullptr};
-  Board window_{};
+  std::unique_ptr<QGraphicsView> view_{nullptr};
+  std::unique_ptr<QGraphicsScene> scene_{nullptr};
+  std::map<std::string, std::unique_ptr<QGraphicsRectItem>> walls_{};
+  std::unique_ptr<QGraphicsEllipseItem> fruit_{};
 };
 
 }  // namespace snake

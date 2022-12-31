@@ -29,3 +29,5 @@ auto snake::Engine::init(int board_rows, int board_cols) -> void {
     }
   }
 }
+
+auto snake::Engine::getFruitPos() const -> pos_t { return fruit_; }
