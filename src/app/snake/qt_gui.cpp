@@ -46,9 +46,11 @@ auto snake::QtGui::run() -> void {
   fruit_->setX(fruit_pos_x);
   fruit_->setY(fruit_pos_y);
 
-  auto snake_pos{engine_->getSnakePos()};
-  for (const auto& p : snake_pos) {
-  }
+  auto [snake_tail, snake_head] = engine_->getSnakePos();
+
+  auto xyz{new QGraphicsLineItem{snake_tail.first, snake_tail.second, snake_head.first, snake_head.second}};
+  xyz->setPen(QPen{kSnakeColor, kScale});
+  scene_->addItem(xyz);
 
   // // keep on running until game over or quit
   // // if no input then advance snake after delay
