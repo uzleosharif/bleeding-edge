@@ -4,8 +4,8 @@
 
 #include <stdexcept>
 
-#include "QtWidgets/QGraphicsScene"
-#include "QtWidgets/QGraphicsView"
+#include "QtGui/QResizeEvent"
+#include "QtWidgets/QGraphicsEllipseItem"
 
 snake::QtGui::QtGui() {}
 
@@ -27,7 +27,7 @@ auto snake::QtGui::run() -> void {
   }
 
   // initialize the game state
-  engine_->init();
+  engine_->init(kBoardWidth, kBoardLength);
 
   // show game start on window
 
@@ -38,13 +38,28 @@ auto snake::QtGui::run() -> void {
 }
 
 snake::QtGui::Board::Board(QWidget* parent) : QMainWindow{parent} {
-  // TODO: resource management??
+  // we initialize all members here in constructor as the map with unique_ptr can't be done so with
+  // initialier_list because it requires copyable types (a unique_ptr is only moveable)
+  view_ = std::make_unique<QGraphicsView>();
+  scene_ = std::make_unique<QGraphicsScene>();
+  walls_.insert({"left", std::make_unique<QGraphicsRectItem>(0, 0, kWallThickness, kBoardWidth)});
+  walls_.insert({"right", std::make_unique<QGraphicsRectItem>(kBoardLength, 0, kWallThickness, kBoardWidth)});
+  walls_.insert({"up", std::make_unique<QGraphicsRectItem>(0, 0, kBoardLength, kWallThickness)});
+  walls_.insert({"down", std::make_unique<QGraphicsRectItem>(0, kBoardWidth, kBoardLength, kWallThickness)});
 
-  // create a `QGraphicsView` widget and set it as the central widget of the main window
-  QGraphicsView* view{new QGraphicsView{}};
-  setCentralWidget(view);
+  // setting up view
+  view_->setBackgroundBrush(kBoardBackgroundColor);
+  view_->setScene(scene_.get());
 
-  // create a `QGraphicsScene` scene and set it as the scene for the view
-  QGraphicsScene* scene{new QGraphicsScene{}};
-  view->setScene(scene);
+  // setting up scene
+  scene_->setSceneRect(0, 0, kBoardLength, kBoardWidth);
+
+  std::ranges::for_each(walls_, [this](const auto& p) {
+    p.second->setBrush(kWallColor);
+
+    scene_->addItem(p.second.get());
+  });
+
+  // view is set as the central widget of main-window
+  setCentralWidget(view_.get());
 }

@@ -2,15 +2,32 @@
 
 #pragma once
 
+#include <map>
+
+#include "QtWidgets/QGraphicsRectItem"
+#include "QtWidgets/QGraphicsScene"
+#include "QtWidgets/QGraphicsView"
 #include "QtWidgets/QMainWindow"
 #include "engine.h"
 
 namespace snake {
 
 class QtGui {
-  class Board : public QMainWindow {
+  // parameters for board
+  static constexpr int kBoardLength{500};
+  static constexpr int kBoardWidth{500};
+  static constexpr int kWallThickness{5};
+  static constexpr auto kBoardBackgroundColor{Qt::black};
+  static constexpr auto kWallColor{Qt::red};
+
+  class Board final : public QMainWindow {
    public:
     Board(QWidget* parent = nullptr);
+
+   private:
+    std::unique_ptr<QGraphicsView> view_{nullptr};
+    std::unique_ptr<QGraphicsScene> scene_{nullptr};
+    std::map<std::string, std::unique_ptr<QGraphicsRectItem>> walls_{};
   };
 
  public:
