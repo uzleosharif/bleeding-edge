@@ -36,4 +36,10 @@ auto snake::Engine::advance() -> void {
 
   head.first++;
   tail.first++;
+
+  if (head.first >= board_cols_ || head.first < 0 || head.second >= board_rows_ || head.second < 0) {
+    game_over_ = true;
+  }
 }
+
+auto snake::Engine::isGameOver() const -> bool { return game_over_; }

@@ -27,6 +27,7 @@ class Engine {
   auto getFruitPos() const -> pos_t;
   auto getSnakePos() const -> std::pair<pos_t, pos_t>;
   auto getSnakeDirection() const -> Direction;
+  auto isGameOver() const -> bool;
 
  private:
   Direction snake_direction_{Direction::RIGHT};
@@ -35,6 +36,7 @@ class Engine {
   pos_t fruit_{};
   // (head, tail)
   std::pair<pos_t, pos_t> snake_{};
+  bool game_over_{false};
 };
 
 }
