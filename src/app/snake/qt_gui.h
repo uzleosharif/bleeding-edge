@@ -19,12 +19,10 @@ class QtGui : public QMainWindow {
   // TODO: expose these to users?
   static constexpr int kBoardLength{500};
   static constexpr int kBoardWidth{500};
-  static constexpr int kWallThickness{5};
-  static constexpr auto kBoardBackgroundColor{Qt::black};
-  static constexpr auto kWallColor{Qt::red};
-  static constexpr auto kFruitColor{Qt::green};
-  static constexpr auto kSnakeColor{Qt::blue};
-  static constexpr int kScale{10};
+  static constexpr auto kBoardBackgroundColor{Qt::white};
+  static constexpr auto kFruitColor{Qt::black};
+  static constexpr auto kSnakeColor{Qt::black};
+  static constexpr int kScale{5};
 
  public:
   // constructor
@@ -44,10 +42,10 @@ class QtGui : public QMainWindow {
 
  private:
   Engine* engine_{nullptr};
-  std::unique_ptr<QGraphicsView> view_{nullptr};
-  std::unique_ptr<QGraphicsScene> scene_{nullptr};
-  std::map<std::string, std::unique_ptr<QGraphicsRectItem>> walls_{};
-  std::unique_ptr<QGraphicsEllipseItem> fruit_{};
+  std::unique_ptr<QGraphicsView> view_{std::make_unique<QGraphicsView>()};
+  std::unique_ptr<QGraphicsScene> scene_{std::make_unique<QGraphicsScene>()};
+  std::unique_ptr<QGraphicsRectItem> walls_{std::make_unique<QGraphicsRectItem>(0, 0, kBoardLength, kBoardWidth)};
+  std::unique_ptr<QGraphicsEllipseItem> fruit_{std::make_unique<QGraphicsEllipseItem>(0, 0, kScale, kScale)};
 };
 
 }  // namespace snake

@@ -24,13 +24,16 @@ class Engine {
 
   auto init(int board_rows = 10, int board_cols = 10) -> void;
   auto getFruitPos() const -> pos_t;
+  auto getSnakePos() const -> const std::vector<pos_t>&;
+  auto getSnakeDirection() const -> Direction;
 
  private:
   Direction snake_direction_{Direction::RIGHT};
   int board_rows_{30};
   int board_cols_{30};
-  std::vector<pos_t> snake_{};
   pos_t fruit_{};
+  // TODO: better container type to represent snake?
+  std::vector<pos_t> snake_{};
 };
 
 }
