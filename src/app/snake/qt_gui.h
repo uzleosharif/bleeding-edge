@@ -23,18 +23,8 @@ class QtGui : public QMainWindow {
   static constexpr auto kBoardBackgroundColor{Qt::black};
   static constexpr auto kWallColor{Qt::red};
   static constexpr auto kFruitColor{Qt::green};
+  static constexpr auto kSnakeColor{Qt::blue};
   static constexpr int kScale{10};
-
-  // class Board final : public QMainWindow {
-  //  public:
-  //   Board(QWidget* parent = nullptr);
-
-  //  private:
-  //   //  TODO: can we do view, scene, walls at compile time??
-  //   std::unique_ptr<QGraphicsView> view_{nullptr};
-  //   std::unique_ptr<QGraphicsScene> scene_{nullptr};
-  //   std::map<std::string, std::unique_ptr<QGraphicsRectItem>> walls_{};
-  // };
 
  public:
   // constructor

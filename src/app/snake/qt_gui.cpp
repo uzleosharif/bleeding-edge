@@ -37,8 +37,6 @@ snake::QtGui::QtGui(QWidget* parent) : QMainWindow{parent} {
 
   // view is set as the central widget of main-window
   setCentralWidget(view_.get());
-
-  scene_->addItem(fruit_.get());
 }
 
 auto snake::QtGui::setEngine(Engine* engine) -> void {
@@ -57,8 +55,17 @@ auto snake::QtGui::run() -> void {
   // initialize the game state
   engine_->init(kBoardWidth, kBoardLength);
 
+  resize(kBoardLength * 1.1, kBoardWidth * 1.1);
+  setWindowTitle("Snake");
+  show();
+
+  // TODO: WELCOME screen
+
   // show game start on window
   auto fruit_pos{engine_->getFruitPos()};
+  fruit_->setX(fruit_pos.first);
+  fruit_->setY(fruit_pos.second);
+  scene_->addItem(fruit_.get());
 
   // // keep on running until game over or quit
   // // if no input then advance snake after delay

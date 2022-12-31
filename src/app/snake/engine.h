@@ -1,5 +1,9 @@
 
 
+// geometry:
+// the engine imagines the game board to be 2D whose points accessed via (x,y) system
+// (0,0) is middle of board
+
 #pragma once
 
 #include <vector>

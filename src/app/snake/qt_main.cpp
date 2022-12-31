@@ -6,13 +6,14 @@
 auto main(int argc, char** argv) -> int {
   QApplication app{argc, argv};
 
+  // engine to use
   snake::Engine engine{};
+
+  // Qt gui to use
   snake::QtGui gui{};
   gui.setEngine(&engine);
-  gui.resize(600, 600);
-  gui.setWindowTitle("Snake");
-  gui.show();
 
+  // start game
   gui.run();
 
   return app.exec();
