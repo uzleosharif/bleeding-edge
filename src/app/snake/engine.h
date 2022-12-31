@@ -1,9 +1,5 @@
 
 
-// geometry:
-// the engine imagines the game board to be 2D whose points accessed via (x,y) system
-// (0,0) is middle of board
-
 #pragma once
 
 #include <utility>
@@ -26,11 +22,13 @@ class Engine {
   auto advance() -> void;
   auto getFruitPos() const -> pos_t;
   auto getSnakePos() const -> std::pair<pos_t, pos_t>;
-  auto getSnakeDirection() const -> Direction;
   auto isGameOver() const -> bool;
 
  private:
-  Direction snake_direction_{Direction::RIGHT};
+  auto hitSnake(pos_t pos) const -> bool;
+
+  Direction head_direction_{Direction::RIGHT};
+  Direction tail_direction_{Direction::RIGHT};
   int board_rows_{30};
   int board_cols_{30};
   pos_t fruit_{};
