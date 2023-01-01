@@ -31,8 +31,7 @@ class QtGui : public QMainWindow {
   static constexpr auto kSnakeColor{Qt::black};
   static constexpr auto kWallsColor{Qt::black};
   // game updates each `kSpeed` milli-seconds
-  // static constexpr int kSpeed{30};
-  static constexpr int kSpeed{90};
+  static constexpr int kSpeed{60};
   static constexpr double kWelcomeScreenWait{3.0};
   static constexpr int kCellSize{1};
   static constexpr int kSpacingSize{2};

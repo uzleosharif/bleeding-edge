@@ -30,6 +30,7 @@ class Engine {
 
  private:
   auto hitSnake(pos_t pos) const -> bool;
+  auto placeFruit() -> void;
 
   int board_rows_{100};
   int board_cols_{100};

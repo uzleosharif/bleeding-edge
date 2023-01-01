@@ -22,13 +22,43 @@ auto snake::Engine::init(int board_rows, int board_cols) -> void {
     snake_out_.emplace_back(&(snake_.back().first));
   }
 
-  // fruit random
+  placeFruit();
+}
+
+auto snake::Engine::placeFruit() -> void {
   while (1) {
     fruit_ = {utils::getRandomInt(2, board_cols_ - 2), utils::getRandomInt(2, board_rows_ - 2)};
-
     if (!hitSnake(fruit_)) {
       break;
     }
+  }
+}
+
+auto snake::Engine::moveUp() -> void {
+  auto& dir{snake_.back().second};
+  if (dir == Direction::RIGHT || dir == Direction::LEFT) {
+    dir = Direction::UP;
+  }
+}
+
+auto snake::Engine::moveDown() -> void {
+  auto& dir{snake_.back().second};
+  if (dir == Direction::RIGHT || dir == Direction::LEFT) {
+    dir = Direction::DOWN;
+  }
+}
+
+auto snake::Engine::moveLeft() -> void {
+  auto& dir{snake_.back().second};
+  if (dir == Direction::UP || dir == Direction::DOWN) {
+    dir = Direction::LEFT;
+  }
+}
+
+auto snake::Engine::moveRight() -> void {
+  auto& dir{snake_.back().second};
+  if (dir == Direction::UP || dir == Direction::DOWN) {
+    dir = Direction::RIGHT;
   }
 }
 
@@ -98,37 +128,11 @@ auto snake::Engine::advance() -> void {
   // expand on eating fruit
   if (head == fruit_) {
     snake_.emplace_back(std::make_pair(fruit_, snake_.back().second));
-    moveBlock(snake_.back().first, snake_.back().second);
     snake_out_.emplace_back(&(snake_.back().first));
+    moveBlock(snake_.back().first, snake_.back().second);
+
+    placeFruit();
   }
 }
 
 auto snake::Engine::isGameOver() const -> bool { return game_over_; }
-
-auto snake::Engine::moveUp() -> void {
-  auto& dir{snake_.back().second};
-  if (dir == Direction::RIGHT || dir == Direction::LEFT) {
-    dir = Direction::UP;
-  }
-}
-
-auto snake::Engine::moveDown() -> void {
-  auto& dir{snake_.back().second};
-  if (dir == Direction::RIGHT || dir == Direction::LEFT) {
-    dir = Direction::DOWN;
-  }
-}
-
-auto snake::Engine::moveLeft() -> void {
-  auto& dir{snake_.back().second};
-  if (dir == Direction::UP || dir == Direction::DOWN) {
-    dir = Direction::LEFT;
-  }
-}
-
-auto snake::Engine::moveRight() -> void {
-  auto& dir{snake_.back().second};
-  if (dir == Direction::UP || dir == Direction::DOWN) {
-    dir = Direction::RIGHT;
-  }
-}
