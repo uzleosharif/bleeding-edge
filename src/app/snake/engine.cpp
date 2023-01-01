@@ -3,6 +3,7 @@
 #include "engine.h"
 
 #include <algorithm>
+// TODO: later remove
 #include <iostream>
 
 #include "utils.h"
@@ -12,16 +13,15 @@ auto snake::Engine::init(int board_rows, int board_cols) -> void {
   board_cols_ = board_cols;
 
   snake_.clear();
-  snake_.reserve(board_rows_ * board_cols_ * 0.5);
+  snake_.reserve(board_rows_ * board_cols_);
 
-  // snake_ = {{board_cols_ / 2 - 10, board_rows_ / 2}, {board_cols_ / 2 + 10, board_rows_ / 2}};
   for (int i = 0; i < 20; ++i) {
-    snake_[i] = {{(board_cols_ / 2) - 10 + i, board_rows_ / 2}, Direction::RIGHT};
+    snake_.push_back({{(board_cols_ / 2) - 10 + i, board_rows_ / 2}, Direction::RIGHT});
   }
 
   // fruit random
   while (1) {
-    fruit_ = {utils::getRandomInt(0, board_cols_), utils::getRandomInt(0, board_rows_)};
+    fruit_ = {utils::getRandomInt(2, board_cols_ - 2), utils::getRandomInt(2, board_rows_ - 2)};
 
     if (!hitSnake(fruit_)) {
       break;
@@ -49,34 +49,6 @@ auto snake::Engine::getFruitPos() const -> pos_t { return fruit_; }
 auto snake::Engine::getSnake() const -> const std::vector<std::pair<pos_t, Direction>>& { return snake_; }
 
 auto snake::Engine::advance() -> void {
-  // auto& tail{snake_.first};
-  // auto& head{snake_.second};
-
-  // auto move{[](pos_t& blk, Direction dir) {
-  //   switch (dir) {
-  //     case Direction::RIGHT: {
-  //       blk.first++;
-  //       break;
-  //     }
-  //     case Direction::LEFT: {
-  //       blk.first--;
-  //       break;
-  //     }
-  //     case Direction::UP: {
-  //       blk.second++;
-  //       break;
-  //     }
-  //     case Direction::DOWN: {
-  //       blk.second--;
-  //       break;
-  //     }
-  //   }
-  // }};
-
-  // move(head, head_direction_);
-  // move(tail, tail_direction_);
-
-  // for (auto& [pos, dir] : snake_) {
   for (auto it{snake_.begin()}; it != snake_.end(); ++it) {
     auto& [pos, dir] = *it;
     auto& [x, y] = pos;
@@ -104,7 +76,7 @@ auto snake::Engine::advance() -> void {
       }
     }
 
-    if (it + 1 != snake_.end()) {
+    if ((it + 1) != snake_.end()) {
       dir = (it + 1)->second;
     }
   }

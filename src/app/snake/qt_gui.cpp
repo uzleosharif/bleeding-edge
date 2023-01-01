@@ -3,6 +3,8 @@
 #include "qt_gui.h"
 
 #include <stdexcept>
+// TODO: later remove
+#include <iostream>
 
 #include "QtGui/QResizeEvent"
 #include "QtWidgets/QApplication"
@@ -13,8 +15,9 @@ snake::QtGui::QtGui(QWidget* parent) : QMainWindow{parent} {
   setWindowTitle("Snake");
   show();
 
+  walls_->setPen(QPen{kWallColor, kWallThickness});
+
   fruit_->setBrush(kFruitColor);
-  snake_->setPen(QPen{kSnakeColor, kScale});
   text_->setPos(kBoardLength / 2 - 50, kBoardWidth / 2);
 
   scene_->setSceneRect(0, 0, kBoardLength, kBoardWidth);
@@ -42,7 +45,13 @@ auto snake::QtGui::run() -> void {
 
   // initialize the game state
   engine_->init(kBoardWidth, kBoardLength);
+  for (const auto& [pos, dir] : engine_->getSnake()) {
+    snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, kScale, kScale));
+    snake_.back()->setX(pos.first);
+    snake_.back()->setY(pos.second);
+  }
 
+  // main gui loop triggered after delay interval
   connect(&timer_, &QTimer::timeout, [this]() {
     game_time_ += (kSpeed / 1000.0);
 
@@ -51,23 +60,28 @@ auto snake::QtGui::run() -> void {
         scene_->removeItem(text_.get());
         scene_->addItem(walls_.get());
         scene_->addItem(fruit_.get());
-        scene_->addItem(snake_.get());
+        for (const auto& item : snake_) {
+          scene_->addItem(item.get());
+        }
 
         snake_started_ = true;
       } else {
         engine_->advance();
-        render();
 
         if (engine_->isGameOver()) {
-          text_->setPlainText("Game Over");
-          text_->setX(text_->x() + 10);
-
           scene_->removeItem(walls_.get());
           scene_->removeItem(fruit_.get());
-          scene_->removeItem(snake_.get());
+          for (auto& item : snake_) {
+            scene_->removeItem(item.get());
+          }
+
+          text_->setPlainText("Game Over");
+          text_->setX(text_->x() + 10);
           scene_->addItem(text_.get());
 
           timer_.stop();
+        } else {
+          render();
         }
       }
     }
@@ -79,11 +93,13 @@ auto snake::QtGui::run() -> void {
 auto snake::QtGui::render() -> void {
   // show game start on window
   auto [fruit_pos_x, fruit_pos_y] = engine_->getFruitPos();
-  fruit_->setX(fruit_pos_x);
-  fruit_->setY(fruit_pos_y);
+  fruit_->setPos(fruit_pos_x, fruit_pos_y);
 
-  // auto [snake_tail, snake_head] = engine_->getSnakePos();
-  // snake_->setLine(snake_tail.first, snake_tail.second, snake_head.first, snake_head.second);
+  const auto& snake{engine_->getSnake()};
+  for (int i = 0; i < snake.size(); ++i) {
+    const auto& pos{snake[i].first};
+    snake_[i]->setPos(pos.first, pos.second);
+  }
 }
 
 auto snake::QtGui::keyPressEvent(QKeyEvent* event) -> void {

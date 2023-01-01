@@ -27,6 +27,8 @@ class QtGui : public QMainWindow {
   // game updates each `kSpeed` milli-seconds
   static constexpr int kSpeed{25};
   static constexpr double kWelcomeScreenWait{3.0};
+  static constexpr auto kWallColor{Qt::black};
+  static constexpr int kWallThickness{10};
 
  public:
   // constructor
@@ -53,7 +55,7 @@ class QtGui : public QMainWindow {
   std::unique_ptr<QGraphicsScene> scene_{std::make_unique<QGraphicsScene>()};
   std::unique_ptr<QGraphicsRectItem> walls_{std::make_unique<QGraphicsRectItem>(0, 0, kBoardLength, kBoardWidth)};
   std::unique_ptr<QGraphicsEllipseItem> fruit_{std::make_unique<QGraphicsEllipseItem>(0, 0, kScale, kScale)};
-  std::unique_ptr<QGraphicsLineItem> snake_{std::make_unique<QGraphicsLineItem>(0, 0, 0, 0)};
+  std::vector<std::unique_ptr<QGraphicsEllipseItem>> snake_{};
   QTimer timer_{};
   std::unique_ptr<QGraphicsTextItem> text_{std::make_unique<QGraphicsTextItem>("Welcome to Snake")};
   // current time (in seconds) spent in game
