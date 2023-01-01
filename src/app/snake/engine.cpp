@@ -14,9 +14,12 @@ auto snake::Engine::init(int board_rows, int board_cols) -> void {
 
   snake_.clear();
   snake_.reserve(board_rows_ * board_cols_);
+  snake_out_.clear();
+  snake_out_.reserve(board_rows_ * board_cols_);
 
   for (int i = 0; i < 20; ++i) {
     snake_.push_back({{(board_cols_ / 2) - 10 + i, board_rows_ / 2}, Direction::RIGHT});
+    snake_out_.emplace_back(&(snake_.back().first));
   }
 
   // fruit random
@@ -46,7 +49,7 @@ auto snake::Engine::hitSnake(pos_t pos) const -> bool {
 
 auto snake::Engine::getFruitPos() const -> pos_t { return fruit_; }
 
-auto snake::Engine::getSnake() const -> const std::vector<std::pair<pos_t, Direction>>& { return snake_; }
+auto snake::Engine::getSnakePos() const -> const std::vector<pos_t*>& { return snake_out_; }
 
 auto snake::Engine::advance() -> void {
   for (auto it{snake_.begin()}; it != snake_.end(); ++it) {

@@ -45,10 +45,9 @@ auto snake::QtGui::run() -> void {
 
   // initialize the game state
   engine_->init(kBoardWidth, kBoardLength);
-  for (const auto& [pos, dir] : engine_->getSnake()) {
+  for (const auto& p : engine_->getSnakePos()) {
     snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, kScale, kScale));
-    snake_.back()->setX(pos.first);
-    snake_.back()->setY(pos.second);
+    snake_.back()->setPos(p->first, p->second);
   }
 
   // main gui loop triggered after delay interval
@@ -95,15 +94,20 @@ auto snake::QtGui::render() -> void {
   auto [fruit_pos_x, fruit_pos_y] = engine_->getFruitPos();
   fruit_->setPos(fruit_pos_x, fruit_pos_y);
 
-  const auto& snake{engine_->getSnake()};
+  const auto& snake{engine_->getSnakePos()};
   for (int i = 0; i < snake.size(); ++i) {
-    const auto& pos{snake[i].first};
-    snake_[i]->setPos(pos.first, pos.second);
+    snake_[i]->setPos(snake[i]->first, snake[i]->second);
   }
 }
 
 auto snake::QtGui::keyPressEvent(QKeyEvent* event) -> void {
   if (event->modifiers() & Qt::ControlModifier && event->key() == Qt::Key_W) {
     QApplication::quit();
+  } else {
+    switch (event->key()) {
+      case Qt::Key_Left: {
+        break;
+      }
+    }
   }
 }
