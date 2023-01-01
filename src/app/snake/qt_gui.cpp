@@ -82,8 +82,8 @@ auto snake::QtGui::render() -> void {
   fruit_->setX(fruit_pos_x);
   fruit_->setY(fruit_pos_y);
 
-  auto [snake_tail, snake_head] = engine_->getSnakePos();
-  snake_->setLine(snake_tail.first, snake_tail.second, snake_head.first, snake_head.second);
+  // auto [snake_tail, snake_head] = engine_->getSnakePos();
+  // snake_->setLine(snake_tail.first, snake_tail.second, snake_head.first, snake_head.second);
 }
 
 auto snake::QtGui::keyPressEvent(QKeyEvent* event) -> void {
