@@ -48,7 +48,7 @@ class QtGui : public QMainWindow {
 
  private:
   auto render() -> void;
-  auto keyPressEvent(QKeyEvent* event) -> void;
+  auto keyPressEvent(QKeyEvent* event) -> void override;
 
   Engine* engine_{nullptr};
   std::unique_ptr<QGraphicsView> view_{std::make_unique<QGraphicsView>()};

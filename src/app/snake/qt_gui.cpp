@@ -103,11 +103,25 @@ auto snake::QtGui::render() -> void {
 auto snake::QtGui::keyPressEvent(QKeyEvent* event) -> void {
   if (event->modifiers() & Qt::ControlModifier && event->key() == Qt::Key_W) {
     QApplication::quit();
-  } else {
-    switch (event->key()) {
-      case Qt::Key_Left: {
-        break;
-      }
+  }
+
+  switch (event->key()) {
+    // TODO: somehow up,down,left,right not recognized
+    case Qt::Key_I: {
+      engine_->moveUp();
+      break;
+    }
+    case Qt::Key_J: {
+      engine_->moveLeft();
+      break;
+    }
+    case Qt::Key_K: {
+      engine_->moveDown();
+      break;
+    }
+    case Qt::Key_L: {
+      engine_->moveRight();
+      break;
     }
   }
 }

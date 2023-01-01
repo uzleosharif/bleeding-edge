@@ -24,6 +24,10 @@ class Engine {
   auto getFruitPos() const -> pos_t;
   auto getSnakePos() const -> const std::vector<const pos_t*>&;
   auto isGameOver() const -> bool;
+  auto moveUp() -> void;
+  auto moveDown() -> void;
+  auto moveLeft() -> void;
+  auto moveRight() -> void;
 
  private:
   auto hitSnake(pos_t pos) const -> bool;

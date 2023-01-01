@@ -66,11 +66,11 @@ auto snake::Engine::advance() -> void {
         break;
       }
       case Direction::UP: {
-        y++;
+        y--;
         break;
       }
       case Direction::DOWN: {
-        y--;
+        y++;
         break;
       }
       default: {
@@ -91,3 +91,31 @@ auto snake::Engine::advance() -> void {
 }
 
 auto snake::Engine::isGameOver() const -> bool { return game_over_; }
+
+auto snake::Engine::moveUp() -> void {
+  auto& dir{snake_.back().second};
+  if (dir == Direction::RIGHT || dir == Direction::LEFT) {
+    dir = Direction::UP;
+  }
+}
+
+auto snake::Engine::moveDown() -> void {
+  auto& dir{snake_.back().second};
+  if (dir == Direction::RIGHT || dir == Direction::LEFT) {
+    dir = Direction::DOWN;
+  }
+}
+
+auto snake::Engine::moveLeft() -> void {
+  auto& dir{snake_.back().second};
+  if (dir == Direction::UP || dir == Direction::DOWN) {
+    dir = Direction::LEFT;
+  }
+}
+
+auto snake::Engine::moveRight() -> void {
+  auto& dir{snake_.back().second};
+  if (dir == Direction::UP || dir == Direction::DOWN) {
+    dir = Direction::RIGHT;
+  }
+}
