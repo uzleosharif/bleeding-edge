@@ -18,6 +18,7 @@
 #include "QtWidgets/QGraphicsScene"
 #include "QtWidgets/QGraphicsView"
 #include "QtWidgets/QMainWindow"
+#include "QtWidgets/QStatusBar"
 #include "engine.h"
 
 namespace snake {
@@ -32,7 +33,7 @@ class QtGui : public QMainWindow {
   static constexpr auto kSnakeColor{Qt::black};
   static constexpr auto kWallsColor{Qt::black};
   // game updates each `kSpeed` milli-seconds
-  static constexpr int kSpeed{60};
+  static constexpr int kSpeed{90};
   static constexpr double kWelcomeScreenWait{3.0};
   static constexpr int kCellSize{1};
   static constexpr int kSpacingSize{2};
@@ -64,6 +65,12 @@ class QtGui : public QMainWindow {
   auto keyPressEvent(QKeyEvent* event) -> void override;
 
   Engine* engine_{nullptr};
+  // current time (in seconds) spent in game
+  double game_time_{0.0};
+  bool snake_started_{false};
+  bool paused_{false};
+  int game_over_wait_cnt_{0};
+
   std::unique_ptr<QGraphicsView> view_{std::make_unique<QGraphicsView>()};
   std::unique_ptr<QGraphicsScene> scene_{std::make_unique<QGraphicsScene>()};
   std::unique_ptr<QGraphicsRectItem> walls_{std::make_unique<QGraphicsRectItem>(0, 0, kGuiBoardLength, kGuiBoardWidth)};
@@ -72,11 +79,7 @@ class QtGui : public QMainWindow {
   std::vector<std::unique_ptr<QGraphicsEllipseItem>> snake_{};
   QTimer timer_{};
   std::unique_ptr<QGraphicsTextItem> text_{std::make_unique<QGraphicsTextItem>("Welcome to Snake")};
-  // current time (in seconds) spent in game
-  double game_time_{0.0};
-  bool snake_started_{false};
-  bool paused_{false};
-  int game_over_wait_cnt_{0};
+  std::unique_ptr<QStatusBar> status_bar_{std::make_unique<QStatusBar>(this)};
 };
 
 }  // namespace snake

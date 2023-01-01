@@ -26,6 +26,7 @@ snake::QtGui::QtGui(QWidget* parent) : QMainWindow{parent} {
   view_->setTransform(QTransform::fromScale(kZoom, kZoom));
   // view_->setFixedSize(...);
   setCentralWidget(view_.get());
+  setStatusBar(status_bar_.get());
 
   timer_.setInterval(kSpeed);
 }
@@ -84,6 +85,7 @@ auto snake::QtGui::run() -> void {
 
   // main gui loop triggered after delay interval
   connect(&timer_, &QTimer::timeout, [this]() {
+    // TODO: maybe refactor via state machine implementation
     if (paused_) {
       return;
     }
@@ -123,6 +125,8 @@ auto snake::QtGui::run() -> void {
         }
       }
     }
+
+    status_bar_->showMessage(QString{"Score: %1"}.arg(engine_->getCurrentScore()));
   });
 
   timer_.start();

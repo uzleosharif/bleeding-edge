@@ -130,7 +130,10 @@ auto snake::Engine::advance() -> void {
     moveBlock(snake_.back().first, snake_.back().second);
 
     placeFruit();
+    fruits_eaten_++;
   }
 }
 
 auto snake::Engine::isGameOver() const -> bool { return game_over_; }
+
+auto snake::Engine::getCurrentScore() const -> int { return fruits_eaten_; }

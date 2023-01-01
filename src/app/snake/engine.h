@@ -27,6 +27,7 @@ class Engine {
   auto moveDown() -> void;
   auto moveLeft() -> void;
   auto moveRight() -> void;
+  auto getCurrentScore() const -> int;
 
  private:
   auto hitSnake(pos_t pos) const -> bool;
@@ -41,6 +42,7 @@ class Engine {
   // a convenience container, to hold const pointers to internal data structure objects, for better api
   // we force const pointers so internal data structure so it can't be messed up by using this
   std::vector<const pos_t*> snake_out_{};
+  int fruits_eaten_{0};
 };
 
 }  // namespace snake
