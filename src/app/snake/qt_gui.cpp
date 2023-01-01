@@ -11,7 +11,7 @@
 #include "QtWidgets/QGraphicsEllipseItem"
 
 snake::QtGui::QtGui(QWidget* parent) : QMainWindow{parent} {
-  resize(kGuiBoardLength * 1.1, kGuiBoardWidth * 1.1);
+  resize(kGuiBoardLength * kZoom * 1.1, kGuiBoardWidth * kZoom * 1.1);
   setWindowTitle("Snake");
   show();
 
@@ -63,6 +63,10 @@ auto snake::QtGui::keyPressEvent(QKeyEvent* event) -> void {
       engine_->moveRight();
       break;
     }
+    case Qt::Key_P: {
+      paused_ = !paused_;
+      break;
+    }
   }
 
   render();
@@ -82,6 +86,10 @@ auto snake::QtGui::run() -> void {
 
   // main gui loop triggered after delay interval
   connect(&timer_, &QTimer::timeout, [this]() {
+    if (paused_) {
+      return;
+    }
+
     game_time_ += (kSpeed / 1000.0);
 
     if (game_time_ >= kWelcomeScreenWait) {

@@ -24,8 +24,8 @@ namespace snake {
 class QtGui : public QMainWindow {
   // parameters for board
   // TODO: expose these to users?
-  static constexpr int kBoardLength{125};
-  static constexpr int kBoardWidth{125};
+  static constexpr int kBoardLength{80};
+  static constexpr int kBoardWidth{80};
   static constexpr auto kBoardBackgroundColor{Qt::white};
   static constexpr auto kFruitColor{Qt::black};
   static constexpr auto kSnakeColor{Qt::black};
@@ -73,6 +73,7 @@ class QtGui : public QMainWindow {
   // current time (in seconds) spent in game
   double game_time_{0.0};
   bool snake_started_{false};
+  bool paused_{false};
 };
 
 }  // namespace snake
