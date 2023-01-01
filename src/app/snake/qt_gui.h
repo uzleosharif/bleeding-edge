@@ -29,11 +29,16 @@ class QtGui : public QMainWindow {
   static constexpr auto kBoardBackgroundColor{Qt::white};
   static constexpr auto kFruitColor{Qt::black};
   static constexpr auto kSnakeColor{Qt::black};
-  static constexpr int kScale{2};
+  static constexpr auto kWallsColor{Qt::black};
   // game updates each `kSpeed` milli-seconds
   // static constexpr int kSpeed{30};
   static constexpr int kSpeed{60};
   static constexpr double kWelcomeScreenWait{3.0};
+  static constexpr int kCellSize{1};
+  static constexpr int kSpacingSize{2};
+  static constexpr int kScale{kCellSize + kSpacingSize};
+  static constexpr int kGuiBoardLength{kBoardLength * kScale};
+  static constexpr int kGuiBoardWidth{kBoardWidth * kScale};
 
  public:
   // constructor
@@ -58,8 +63,9 @@ class QtGui : public QMainWindow {
   Engine* engine_{nullptr};
   std::unique_ptr<QGraphicsView> view_{std::make_unique<QGraphicsView>()};
   std::unique_ptr<QGraphicsScene> scene_{std::make_unique<QGraphicsScene>()};
-  std::unique_ptr<QGraphicsRectItem> walls_{std::make_unique<QGraphicsRectItem>(0, 0, kBoardLength, kBoardWidth)};
-  std::unique_ptr<QGraphicsEllipseItem> fruit_{std::make_unique<QGraphicsEllipseItem>(0, 0, 1, 1)};
+  std::unique_ptr<QGraphicsRectItem> walls_{std::make_unique<QGraphicsRectItem>(0, 0, kGuiBoardLength, kGuiBoardWidth)};
+  std::unique_ptr<QGraphicsEllipseItem> fruit_{std::make_unique<QGraphicsEllipseItem>(0, 0, kCellSize, kCellSize)};
+  // std::unique_ptr<Q
   std::vector<std::unique_ptr<QGraphicsEllipseItem>> snake_{};
   QTimer timer_{};
   std::unique_ptr<QGraphicsTextItem> text_{std::make_unique<QGraphicsTextItem>("Welcome to Snake")};

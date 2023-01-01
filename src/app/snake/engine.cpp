@@ -99,11 +99,11 @@ auto snake::Engine::advance() -> void {
   if (head == fruit_) {
     std::cout << "eating fruit\n";
 
-    for (auto& [pos, dir] : snake_) {
-      moveBlock(pos, dir);
-    }
+    // for (auto& [pos, dir] : snake_) {
+    //   moveBlock(pos, dir);
+    // }
 
-    snake_.emplace_back(std::make_pair(fruit_, snake_.back().second));
+    // snake_.emplace_back(std::make_pair(fruit_, snake_.back().second));
   }
 }
 

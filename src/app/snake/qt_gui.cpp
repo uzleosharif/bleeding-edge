@@ -11,19 +11,22 @@
 #include "QtWidgets/QGraphicsEllipseItem"
 
 snake::QtGui::QtGui(QWidget* parent) : QMainWindow{parent} {
-  resize(kBoardLength * kScale * 1.1, kBoardWidth * kScale * 1.1);
+  resize(kGuiBoardLength * 1.1, kGuiBoardWidth * 1.1);
   setWindowTitle("Snake");
   show();
 
-  fruit_->setBrush(kFruitColor);
-  text_->setPos(kBoardLength / 2 - 50, kBoardWidth / 2);
+  walls_->setPen(QPen{kWallsColor, kSpacingSize});
 
-  scene_->setSceneRect(0, 0, kBoardLength, kBoardWidth);
+  fruit_->setBrush(kFruitColor);
+  text_->setPos(kGuiBoardLength / 2 - 50, kGuiBoardWidth / 2);
+
+  scene_->setSceneRect(0, 0, kGuiBoardLength, kGuiBoardWidth);
   scene_->addItem(text_.get());
 
   view_->setBackgroundBrush(kBoardBackgroundColor);
   view_->setScene(scene_.get());
-  view_->setTransform(QTransform::fromScale(kScale, kScale));
+  // view_->setTransform(QTransform::fromScale(kScale, kScale));
+  // view_->setFixedSize(...);
   setCentralWidget(view_.get());
 
   timer_.setInterval(kSpeed);
@@ -37,6 +40,32 @@ auto snake::QtGui::setEngine(Engine* engine) -> void {
   engine_ = engine;
 }
 
+auto snake::QtGui::keyPressEvent(QKeyEvent* event) -> void {
+  if (event->modifiers() & Qt::ControlModifier && event->key() == Qt::Key_W) {
+    QApplication::quit();
+  }
+
+  switch (event->key()) {
+    // TODO: somehow up,down,left,right not recognized
+    case Qt::Key_I: {
+      engine_->moveUp();
+      break;
+    }
+    case Qt::Key_J: {
+      engine_->moveLeft();
+      break;
+    }
+    case Qt::Key_K: {
+      engine_->moveDown();
+      break;
+    }
+    case Qt::Key_L: {
+      engine_->moveRight();
+      break;
+    }
+  }
+}
+
 auto snake::QtGui::run() -> void {
   if (engine_ == nullptr) {
     throw std::runtime_error{"Request to run the game with invalid engine"};
@@ -45,8 +74,8 @@ auto snake::QtGui::run() -> void {
   // initialize the game state
   engine_->init(kBoardWidth, kBoardLength);
   for (const auto& p : engine_->getSnakePos()) {
-    snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, 1, 1));
-    snake_.back()->setPos(p->first, p->second);
+    snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, kCellSize, kCellSize));
+    snake_.back()->setPos(p->first * kScale, p->second * kScale);
   }
 
   // main gui loop triggered after delay interval
@@ -91,7 +120,7 @@ auto snake::QtGui::run() -> void {
 auto snake::QtGui::render() -> void {
   // show game start on window
   auto [fruit_pos_x, fruit_pos_y] = engine_->getFruitPos();
-  fruit_->setPos(fruit_pos_x, fruit_pos_y);
+  fruit_->setPos(fruit_pos_x * kScale, fruit_pos_y * kScale);
 
   const auto& snake{engine_->getSnakePos()};
   if (snake.size() > snake_.size()) {
@@ -99,38 +128,12 @@ auto snake::QtGui::render() -> void {
       throw std::runtime_error{"it seems GUI lost track of engine's snake as snake grew more than expected"};
     }
 
-    snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, 1, 1));
+    snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, kCellSize, kCellSize));
   } else if (snake.size() < snake_.size()) {
     throw std::runtime_error{"it seems GUI lost track of engine's snake"};
   }
 
   for (int i = 0; i < snake_.size(); ++i) {
-    snake_[i]->setPos(snake[i]->first, snake[i]->second);
-  }
-}
-
-auto snake::QtGui::keyPressEvent(QKeyEvent* event) -> void {
-  if (event->modifiers() & Qt::ControlModifier && event->key() == Qt::Key_W) {
-    QApplication::quit();
-  }
-
-  switch (event->key()) {
-    // TODO: somehow up,down,left,right not recognized
-    case Qt::Key_I: {
-      engine_->moveUp();
-      break;
-    }
-    case Qt::Key_J: {
-      engine_->moveLeft();
-      break;
-    }
-    case Qt::Key_K: {
-      engine_->moveDown();
-      break;
-    }
-    case Qt::Key_L: {
-      engine_->moveRight();
-      break;
-    }
+    snake_[i]->setPos(snake[i]->first * kScale, snake[i]->second * kScale);
   }
 }
