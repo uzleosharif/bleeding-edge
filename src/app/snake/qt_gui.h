@@ -32,7 +32,7 @@ class QtGui : public QMainWindow {
   static constexpr auto kSnakeColor{Qt::black};
   static constexpr auto kWallsColor{Qt::black};
   // game updates each `kSpeed` milli-seconds
-  static constexpr int kSpeed{160};
+  static constexpr int kSpeed{60};
   static constexpr double kWelcomeScreenWait{3.0};
   static constexpr int kCellSize{1};
   static constexpr int kSpacingSize{2};
@@ -41,7 +41,7 @@ class QtGui : public QMainWindow {
   static constexpr int kGuiBoardWidth{kBoardWidth * kScale};
   static constexpr int kZoom{2};
   // on game-over we wait for following frames before quitting game
-  static constexpr int kGameOverWait{50};
+  static constexpr int kGameOverWait{40};
 
  public:
   // constructor

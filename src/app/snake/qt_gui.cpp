@@ -3,8 +3,6 @@
 #include "qt_gui.h"
 
 #include <stdexcept>
-// TODO: later remove
-#include <iostream>
 
 #include "QtGui/QResizeEvent"
 #include "QtWidgets/QApplication"
