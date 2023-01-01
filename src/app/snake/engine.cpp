@@ -18,7 +18,7 @@ auto snake::Engine::init(int board_rows, int board_cols) -> void {
   snake_out_.reserve(board_rows_ * board_cols_);
 
   for (int i = 0; i < 20; ++i) {
-    snake_.push_back({{(board_cols_ / 2) - 10 + i, board_rows_ / 2}, Direction::RIGHT});
+    snake_.emplace_back(std::make_pair(std::make_pair((board_cols_ / 2) - 10 + i, board_rows_ / 2), Direction::RIGHT));
     snake_out_.emplace_back(&(snake_.back().first));
   }
 
@@ -52,8 +52,7 @@ auto snake::Engine::getFruitPos() const -> pos_t { return fruit_; }
 auto snake::Engine::getSnakePos() const -> const std::vector<const pos_t*>& { return snake_out_; }
 
 auto snake::Engine::advance() -> void {
-  for (auto it{snake_.begin()}; it != snake_.end(); ++it) {
-    auto& [pos, dir] = *it;
+  auto moveBlock{[](pos_t& pos, Direction dir) {
     auto& [x, y] = pos;
 
     switch (dir) {
@@ -74,10 +73,14 @@ auto snake::Engine::advance() -> void {
         break;
       }
       default: {
-        // TODO: throw proper exception here (runtime exception??)
-        std::terminate();
+        throw std::runtime_error{"Unexpected direction found for a snake block"};
       }
     }
+  }};
+
+  for (auto it{snake_.begin()}; it != snake_.end(); ++it) {
+    auto& [pos, dir] = *it;
+    moveBlock(pos, dir);
 
     if ((it + 1) != snake_.end()) {
       dir = (it + 1)->second;
@@ -85,8 +88,22 @@ auto snake::Engine::advance() -> void {
   }
 
   auto& head{snake_.back().first};
+
+  // game over check
+  // checkGameOver();
   if (head.first >= board_cols_ || head.first < 0 || head.second >= board_rows_ || head.second < 0) {
     game_over_ = true;
+  }
+
+  // expand on eating fruit
+  if (head == fruit_) {
+    std::cout << "eating fruit\n";
+
+    for (auto& [pos, dir] : snake_) {
+      moveBlock(pos, dir);
+    }
+
+    snake_.emplace_back(std::make_pair(fruit_, snake_.back().second));
   }
 }
 

@@ -2,6 +2,12 @@
 
 // my first attempt at gui programming so there is lot of room for improvement (graphics, performance)
 
+// Usage:
+// CTRL+W to quit
+// IJKL for snake control
+
+// TODO: walls not aligned properly (esp. bottom and right ones)
+
 #pragma once
 
 #include <map>
@@ -18,17 +24,16 @@ namespace snake {
 class QtGui : public QMainWindow {
   // parameters for board
   // TODO: expose these to users?
-  static constexpr int kBoardLength{250};
-  static constexpr int kBoardWidth{250};
+  static constexpr int kBoardLength{125};
+  static constexpr int kBoardWidth{125};
   static constexpr auto kBoardBackgroundColor{Qt::white};
   static constexpr auto kFruitColor{Qt::black};
   static constexpr auto kSnakeColor{Qt::black};
-  static constexpr int kScale{5};
+  static constexpr int kScale{2};
   // game updates each `kSpeed` milli-seconds
-  static constexpr int kSpeed{25};
+  // static constexpr int kSpeed{30};
+  static constexpr int kSpeed{60};
   static constexpr double kWelcomeScreenWait{3.0};
-  static constexpr auto kWallColor{Qt::black};
-  static constexpr int kWallThickness{kScale};
 
  public:
   // constructor
@@ -54,7 +59,7 @@ class QtGui : public QMainWindow {
   std::unique_ptr<QGraphicsView> view_{std::make_unique<QGraphicsView>()};
   std::unique_ptr<QGraphicsScene> scene_{std::make_unique<QGraphicsScene>()};
   std::unique_ptr<QGraphicsRectItem> walls_{std::make_unique<QGraphicsRectItem>(0, 0, kBoardLength, kBoardWidth)};
-  std::unique_ptr<QGraphicsEllipseItem> fruit_{std::make_unique<QGraphicsEllipseItem>(0, 0, kScale, kScale)};
+  std::unique_ptr<QGraphicsEllipseItem> fruit_{std::make_unique<QGraphicsEllipseItem>(0, 0, 1, 1)};
   std::vector<std::unique_ptr<QGraphicsEllipseItem>> snake_{};
   QTimer timer_{};
   std::unique_ptr<QGraphicsTextItem> text_{std::make_unique<QGraphicsTextItem>("Welcome to Snake")};

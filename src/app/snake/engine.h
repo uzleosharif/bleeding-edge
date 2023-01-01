@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include <utility>
 #include <vector>
 
 namespace snake {

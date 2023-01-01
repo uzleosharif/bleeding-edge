@@ -11,11 +11,9 @@
 #include "QtWidgets/QGraphicsEllipseItem"
 
 snake::QtGui::QtGui(QWidget* parent) : QMainWindow{parent} {
-  resize(kBoardLength * 1.1, kBoardWidth * 1.1);
+  resize(kBoardLength * kScale * 1.1, kBoardWidth * kScale * 1.1);
   setWindowTitle("Snake");
   show();
-
-  walls_->setPen(QPen{kWallColor, kWallThickness});
 
   fruit_->setBrush(kFruitColor);
   text_->setPos(kBoardLength / 2 - 50, kBoardWidth / 2);
@@ -25,6 +23,7 @@ snake::QtGui::QtGui(QWidget* parent) : QMainWindow{parent} {
 
   view_->setBackgroundBrush(kBoardBackgroundColor);
   view_->setScene(scene_.get());
+  view_->setTransform(QTransform::fromScale(kScale, kScale));
   setCentralWidget(view_.get());
 
   timer_.setInterval(kSpeed);
@@ -46,7 +45,7 @@ auto snake::QtGui::run() -> void {
   // initialize the game state
   engine_->init(kBoardWidth, kBoardLength);
   for (const auto& p : engine_->getSnakePos()) {
-    snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, kScale, kScale));
+    snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, 1, 1));
     snake_.back()->setPos(p->first, p->second);
   }
 
@@ -95,7 +94,17 @@ auto snake::QtGui::render() -> void {
   fruit_->setPos(fruit_pos_x, fruit_pos_y);
 
   const auto& snake{engine_->getSnakePos()};
-  for (int i = 0; i < snake.size(); ++i) {
+  if (snake.size() > snake_.size()) {
+    if (snake.size() != snake_.size() + 1) {
+      throw std::runtime_error{"it seems GUI lost track of engine's snake as snake grew more than expected"};
+    }
+
+    snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, 1, 1));
+  } else if (snake.size() < snake_.size()) {
+    throw std::runtime_error{"it seems GUI lost track of engine's snake"};
+  }
+
+  for (int i = 0; i < snake_.size(); ++i) {
     snake_[i]->setPos(snake[i]->first, snake[i]->second);
   }
 }
