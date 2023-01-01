@@ -25,7 +25,7 @@ snake::QtGui::QtGui(QWidget* parent) : QMainWindow{parent} {
 
   view_->setBackgroundBrush(kBoardBackgroundColor);
   view_->setScene(scene_.get());
-  // view_->setTransform(QTransform::fromScale(kScale, kScale));
+  view_->setTransform(QTransform::fromScale(kZoom, kZoom));
   // view_->setFixedSize(...);
   setCentralWidget(view_.get());
 
@@ -64,6 +64,8 @@ auto snake::QtGui::keyPressEvent(QKeyEvent* event) -> void {
       break;
     }
   }
+
+  render();
 }
 
 auto snake::QtGui::run() -> void {
@@ -129,6 +131,7 @@ auto snake::QtGui::render() -> void {
     }
 
     snake_.emplace_back(std::make_unique<QGraphicsEllipseItem>(0, 0, kCellSize, kCellSize));
+    scene_->addItem(snake_.back().get());
   } else if (snake.size() < snake_.size()) {
     throw std::runtime_error{"it seems GUI lost track of engine's snake"};
   }

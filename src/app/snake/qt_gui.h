@@ -32,13 +32,14 @@ class QtGui : public QMainWindow {
   static constexpr auto kWallsColor{Qt::black};
   // game updates each `kSpeed` milli-seconds
   // static constexpr int kSpeed{30};
-  static constexpr int kSpeed{60};
+  static constexpr int kSpeed{90};
   static constexpr double kWelcomeScreenWait{3.0};
   static constexpr int kCellSize{1};
   static constexpr int kSpacingSize{2};
   static constexpr int kScale{kCellSize + kSpacingSize};
   static constexpr int kGuiBoardLength{kBoardLength * kScale};
   static constexpr int kGuiBoardWidth{kBoardWidth * kScale};
+  static constexpr int kZoom{2};
 
  public:
   // constructor

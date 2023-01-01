@@ -97,13 +97,9 @@ auto snake::Engine::advance() -> void {
 
   // expand on eating fruit
   if (head == fruit_) {
-    std::cout << "eating fruit\n";
-
-    // for (auto& [pos, dir] : snake_) {
-    //   moveBlock(pos, dir);
-    // }
-
-    // snake_.emplace_back(std::make_pair(fruit_, snake_.back().second));
+    snake_.emplace_back(std::make_pair(fruit_, snake_.back().second));
+    moveBlock(snake_.back().first, snake_.back().second);
+    snake_out_.emplace_back(&(snake_.back().first));
   }
 }
 
