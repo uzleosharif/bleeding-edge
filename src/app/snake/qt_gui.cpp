@@ -106,17 +106,20 @@ auto snake::QtGui::run() -> void {
         engine_->advance();
 
         if (engine_->isGameOver()) {
-          scene_->removeItem(walls_.get());
-          scene_->removeItem(fruit_.get());
-          for (auto& item : snake_) {
-            scene_->removeItem(item.get());
+          game_over_wait_cnt_++;
+          if (game_over_wait_cnt_ == kGameOverWait) {
+            scene_->removeItem(walls_.get());
+            scene_->removeItem(fruit_.get());
+            for (auto& item : snake_) {
+              scene_->removeItem(item.get());
+            }
+
+            text_->setPlainText("Game Over");
+            text_->setX(text_->x() + 10);
+            scene_->addItem(text_.get());
+
+            timer_.stop();
           }
-
-          text_->setPlainText("Game Over");
-          text_->setX(text_->x() + 10);
-          scene_->addItem(text_.get());
-
-          timer_.stop();
         } else {
           render();
         }

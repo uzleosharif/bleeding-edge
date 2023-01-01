@@ -5,6 +5,7 @@
 // Usage:
 // CTRL+W to quit
 // IJKL for snake control
+// P for pause
 
 // TODO: walls not aligned properly (esp. bottom and right ones)
 
@@ -31,7 +32,7 @@ class QtGui : public QMainWindow {
   static constexpr auto kSnakeColor{Qt::black};
   static constexpr auto kWallsColor{Qt::black};
   // game updates each `kSpeed` milli-seconds
-  static constexpr int kSpeed{60};
+  static constexpr int kSpeed{160};
   static constexpr double kWelcomeScreenWait{3.0};
   static constexpr int kCellSize{1};
   static constexpr int kSpacingSize{2};
@@ -39,6 +40,8 @@ class QtGui : public QMainWindow {
   static constexpr int kGuiBoardLength{kBoardLength * kScale};
   static constexpr int kGuiBoardWidth{kBoardWidth * kScale};
   static constexpr int kZoom{2};
+  // on game-over we wait for following frames before quitting game
+  static constexpr int kGameOverWait{50};
 
  public:
   // constructor
@@ -73,6 +76,7 @@ class QtGui : public QMainWindow {
   double game_time_{0.0};
   bool snake_started_{false};
   bool paused_{false};
+  int game_over_wait_cnt_{0};
 };
 
 }  // namespace snake

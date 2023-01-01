@@ -18,7 +18,7 @@ class Engine {
   Engine& operator=(const Engine&) = default;
   Engine& operator=(Engine&&) = default;
 
-  auto init(int board_rows = 100, int board_cols = 100) -> void;
+  auto init(int board_rows = 100, int board_cols = 100, int snake_blocks = 20) -> void;
   auto advance() -> void;
   auto getFruitPos() const -> pos_t;
   auto getSnakePos() const -> const std::vector<const pos_t*>&;
@@ -31,6 +31,7 @@ class Engine {
  private:
   auto hitSnake(pos_t pos) const -> bool;
   auto placeFruit() -> void;
+  auto growSnake(int blocks = 1) -> void;
 
   int board_rows_{100};
   int board_cols_{100};
