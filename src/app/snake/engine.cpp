@@ -49,7 +49,7 @@ auto snake::Engine::hitSnake(pos_t pos) const -> bool {
 
 auto snake::Engine::getFruitPos() const -> pos_t { return fruit_; }
 
-auto snake::Engine::getSnakePos() const -> const std::vector<pos_t*>& { return snake_out_; }
+auto snake::Engine::getSnakePos() const -> const std::vector<const pos_t*>& { return snake_out_; }
 
 auto snake::Engine::advance() -> void {
   for (auto it{snake_.begin()}; it != snake_.end(); ++it) {

@@ -28,7 +28,7 @@ class QtGui : public QMainWindow {
   static constexpr int kSpeed{25};
   static constexpr double kWelcomeScreenWait{3.0};
   static constexpr auto kWallColor{Qt::black};
-  static constexpr int kWallThickness{10};
+  static constexpr int kWallThickness{kScale};
 
  public:
   // constructor

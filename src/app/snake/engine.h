@@ -22,7 +22,7 @@ class Engine {
   auto init(int board_rows = 100, int board_cols = 100) -> void;
   auto advance() -> void;
   auto getFruitPos() const -> pos_t;
-  auto getSnakePos() const -> const std::vector<pos_t*>&;
+  auto getSnakePos() const -> const std::vector<const pos_t*>&;
   auto isGameOver() const -> bool;
 
  private:
@@ -31,9 +31,11 @@ class Engine {
   int board_rows_{100};
   int board_cols_{100};
   pos_t fruit_{};
-  std::vector<std::pair<pos_t, Direction>> snake_{};
-  std::vector<pos_t*> snake_out_{};
   bool game_over_{false};
+  std::vector<std::pair<pos_t, Direction>> snake_{};
+  // a convenience container, to hold const pointers to internal data structure objects, for better api
+  // we force const pointers so internal data structure so it can't be messed up by using this
+  std::vector<const pos_t*> snake_out_{};
 };
 
 }  // namespace snake
